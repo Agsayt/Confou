@@ -27,10 +27,13 @@ namespace Confou.Entity
         public System.Guid TicketCode { get; set; }
         public System.DateTime SoldDate { get; set; }
         public int SoldBy { get; set; }
-        public Nullable<int> BillingId { get; set; }
+        public int BillingId { get; set; }
         public int TicketStatus { get; set; }
+        public Nullable<int> Placement { get; set; }
     
         public virtual BillingInformation BillingInformation { get; set; }
+        public virtual Events Events { get; set; }
+        public virtual TicketPlacementType TicketPlacementType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SellerToTicket> SellerToTicket { get; set; }
         public virtual TicketStatuses TicketStatuses { get; set; }

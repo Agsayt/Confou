@@ -21,8 +21,8 @@ namespace Confou.Entity
             this.Tickets = new HashSet<Tickets>();
         }
     
-        public Nullable<int> UserId { get; set; }
         public string BuyerEmail { get; set; }
+        public Nullable<int> UserId { get; set; }
         public System.DateTime CreateDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -23,9 +23,9 @@ namespace Confou.Entity
         public int TicketTypeId { get; set; }
         public string TicketName { get; set; }
         public decimal TicketPrice { get; set; }
-        public string TicketAmount { get; set; }
-        public Nullable<int> TicketTypeStatus { get; set; }
-        public Nullable<bool> TicketVisibility { get; set; }
+        public int TicketAmount { get; set; }
+        public int TicketTypeStatus { get; set; }
+        public bool TicketVisibility { get; set; }
     
         public virtual TicketTypeStatuses TicketTypeStatuses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

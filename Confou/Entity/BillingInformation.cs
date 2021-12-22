@@ -23,7 +23,6 @@ namespace Confou.Entity
         public int BillingId { get; set; }
         public int TicketId { get; set; }
         public bool TransactionResult { get; set; }
-        public string Email { get; set; }
         public System.DateTime TransactionDate { get; set; }
         public int SellerId { get; set; }
         public string BuyerEmail { get; set; }

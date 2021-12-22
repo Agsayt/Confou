@@ -17,6 +17,7 @@ namespace Confou.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Events()
         {
+            this.Tickets = new HashSet<Tickets>();
             this.TicketType = new HashSet<TicketType>();
         }
     
@@ -28,13 +29,15 @@ namespace Confou.Entity
         public string EventDescription { get; set; }
         public System.DateTime EventDate { get; set; }
         public int EventStatus { get; set; }
-        public int CreateDate { get; set; }
+        public System.DateTime CreateDate { get; set; }
         public int AgeRestriction { get; set; }
     
+        public virtual AgeRestrictionTypes AgeRestrictionTypes { get; set; }
         public virtual EventStatuses EventStatuses { get; set; }
         public virtual Organizations Organizations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tickets> Tickets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TicketType> TicketType { get; set; }
-        public virtual AgeRestrictionTypes AgeRestrictionTypes { get; set; }
     }
 }

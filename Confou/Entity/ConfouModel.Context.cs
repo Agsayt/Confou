@@ -25,8 +25,12 @@ namespace Confou.Entity
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ActionType> ActionType { get; set; }
+        public virtual DbSet<AgeRestrictionTypes> AgeRestrictionTypes { get; set; }
         public virtual DbSet<BillingInformation> BillingInformation { get; set; }
         public virtual DbSet<Buyer> Buyer { get; set; }
+        public virtual DbSet<DisactivatedAccounts> DisactivatedAccounts { get; set; }
+        public virtual DbSet<DisactivatedTypes> DisactivatedTypes { get; set; }
         public virtual DbSet<Events> Events { get; set; }
         public virtual DbSet<EventStatuses> EventStatuses { get; set; }
         public virtual DbSet<Logging> Logging { get; set; }
@@ -34,15 +38,12 @@ namespace Confou.Entity
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Seller> Seller { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<TicketPlacementType> TicketPlacementType { get; set; }
         public virtual DbSet<Tickets> Tickets { get; set; }
         public virtual DbSet<TicketStatuses> TicketStatuses { get; set; }
         public virtual DbSet<TicketType> TicketType { get; set; }
         public virtual DbSet<TicketTypeStatuses> TicketTypeStatuses { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<SellerToTicket> SellerToTicket { get; set; }
-        public virtual DbSet<ActionType> ActionType { get; set; }
-        public virtual DbSet<DisactivatedAccounts> DisactivatedAccounts { get; set; }
-        public virtual DbSet<DisactivatedTypes> DisactivatedTypes { get; set; }
-        public virtual DbSet<AgeRestrictionTypes> AgeRestrictionTypes { get; set; }
     }
 }

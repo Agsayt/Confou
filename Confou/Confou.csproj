@@ -129,6 +129,9 @@
     <Compile Include="Entity\sysdiagrams.cs">
       <DependentUpon>ConfouModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\TicketPlacementType.cs">
+      <DependentUpon>ConfouModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Tickets.cs">
       <DependentUpon>ConfouModel.tt</DependentUpon>
     </Compile>
@@ -187,8 +190,8 @@
     <Content Include="AdditionalFiles\Confou_bd.sql" />
     <Content Include="Entity\ConfouModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ConfouModel.Context.cs</LastGenOutput>
       <DependentUpon>ConfouModel.edmx</DependentUpon>
+      <LastGenOutput>ConfouModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Entity\ConfouModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -199,5 +202,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
