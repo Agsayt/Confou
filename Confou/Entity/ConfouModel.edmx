@@ -12,6 +12,13 @@
           <Property Name="ActionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ActionName" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="AgeRestrictionTypes">
+          <Key>
+            <PropertyRef Name="AgeRestrictionId" />
+          </Key>
+          <Property Name="AgeRestrictionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestrictionName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="BillingInformation">
           <Key>
             <PropertyRef Name="BillingId" />
@@ -74,6 +81,7 @@
           <Property Name="EventDate" Type="datetime" Nullable="false" />
           <Property Name="EventStatus" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="int" Nullable="false" />
+          <Property Name="AgeRestriction" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EventStatuses">
           <Key>
@@ -100,10 +108,11 @@
           </Key>
           <Property Name="OrganizationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssigneeId" Type="int" Nullable="false" />
-          <Property Name="OrganizationName" Type="nvarchar" MaxLength="100" />
-          <Property Name="OrganizationINN" Type="numeric" Precision="12" Scale="0" />
-          <Property Name="CreateDate" Type="datetime" />
-          <Property Name="CreateAuthor" Type="int" />
+          <Property Name="OrganizationName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="OrganizationINN" Type="numeric" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="Fee" Type="numeric" Precision="2" Scale="2" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateAuthor" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -289,6 +298,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Events_AgeRestrictionTypes">
+          <End Role="AgeRestrictionTypes" Type="Self.AgeRestrictionTypes" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgeRestrictionTypes">
+              <PropertyRef Name="AgeRestrictionId" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="AgeRestriction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Events_EventStatuses">
           <End Role="EventStatuses" Type="Self.EventStatuses" Multiplicity="1" />
           <End Role="Events" Type="Self.Events" Multiplicity="*" />
@@ -447,6 +468,7 @@
         </Association>
         <EntityContainer Name="Хранилище ConfouModelContainer">
           <EntitySet Name="ActionType" EntityType="Self.ActionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgeRestrictionTypes" EntityType="Self.AgeRestrictionTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BillingInformation" EntityType="Self.BillingInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Buyer" EntityType="Self.Buyer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DisactivatedAccounts" EntityType="Self.DisactivatedAccounts" Schema="dbo" store:Type="Tables" />
@@ -508,6 +530,10 @@
           <AssociationSet Name="FK_DisactivatedAccounts_Users" Association="Self.FK_DisactivatedAccounts_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="DisactivatedAccounts" EntitySet="DisactivatedAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_AgeRestrictionTypes" Association="Self.FK_Events_AgeRestrictionTypes">
+            <End Role="AgeRestrictionTypes" EntitySet="AgeRestrictionTypes" />
+            <End Role="Events" EntitySet="Events" />
           </AssociationSet>
           <AssociationSet Name="FK_Events_EventStatuses" Association="Self.FK_Events_EventStatuses">
             <End Role="EventStatuses" EntitySet="EventStatuses" />
@@ -608,6 +634,8 @@
           <NavigationProperty Name="EventStatuses" Relationship="Self.FK_Events_EventStatuses" FromRole="Events" ToRole="EventStatuses" />
           <NavigationProperty Name="Organizations" Relationship="Self.FK_Events_Organizations" FromRole="Events" ToRole="Organizations" />
           <NavigationProperty Name="TicketType" Relationship="Self.TicketPool" FromRole="Events" ToRole="TicketType" />
+          <Property Name="AgeRestriction" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AgeRestrictionTypes" Relationship="ConfouModel.FK_Events_AgeRestrictionTypes" FromRole="Events" ToRole="AgeRestrictionTypes" />
         </EntityType>
         <EntityType Name="EventStatuses">
           <Key>
@@ -636,12 +664,13 @@
           </Key>
           <Property Name="OrganizationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssigneeId" Type="Int32" Nullable="false" />
-          <Property Name="OrganizationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OrganizationINN" Type="Decimal" Precision="12" Scale="0" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="CreateAuthor" Type="Int32" />
+          <Property Name="OrganizationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrganizationINN" Type="Decimal" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="CreateAuthor" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Organizations" FromRole="Organizations" ToRole="Events" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Organizations_Users" FromRole="Organizations" ToRole="Users" />
+          <Property Name="Fee" Type="Decimal" Nullable="false" Precision="2" Scale="2" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -1005,6 +1034,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="DisactivatedAccounts" EntitySet="DisactivatedAccounts" />
           </AssociationSet>
+          <EntitySet Name="AgeRestrictionTypes" EntityType="ConfouModel.AgeRestrictionTypes" />
+          <AssociationSet Name="FK_Events_AgeRestrictionTypes" Association="ConfouModel.FK_Events_AgeRestrictionTypes">
+            <End Role="AgeRestrictionTypes" EntitySet="AgeRestrictionTypes" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ActionType">
           <Key>
@@ -1072,6 +1106,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AgeRestrictionTypes">
+          <Key>
+            <PropertyRef Name="AgeRestrictionId" />
+          </Key>
+          <Property Name="AgeRestrictionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestrictionName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Events" Relationship="ConfouModel.FK_Events_AgeRestrictionTypes" FromRole="AgeRestrictionTypes" ToRole="Events" />
+        </EntityType>
+        <Association Name="FK_Events_AgeRestrictionTypes">
+          <End Type="ConfouModel.AgeRestrictionTypes" Role="AgeRestrictionTypes" Multiplicity="1" />
+          <End Type="ConfouModel.Events" Role="Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgeRestrictionTypes">
+              <PropertyRef Name="AgeRestrictionId" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="AgeRestriction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1103,6 +1157,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="ConfouModel.Events">
               <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="AgeRestriction" ColumnName="AgeRestriction" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="OrgarnizatorID" ColumnName="OrgarnizatorID" />
                 <ScalarProperty Name="EventName" ColumnName="EventName" />
@@ -1139,6 +1194,7 @@
           <EntitySetMapping Name="Organizations">
             <EntityTypeMapping TypeName="ConfouModel.Organizations">
               <MappingFragment StoreEntitySet="Organizations">
+                <ScalarProperty Name="Fee" ColumnName="Fee" />
                 <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
                 <ScalarProperty Name="AssigneeId" ColumnName="AssigneeId" />
                 <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
@@ -1286,6 +1342,14 @@
               <MappingFragment StoreEntitySet="DisactivatedTypes">
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="DisactivatedTypeId" ColumnName="DisactivatedTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgeRestrictionTypes">
+            <EntityTypeMapping TypeName="ConfouModel.AgeRestrictionTypes">
+              <MappingFragment StoreEntitySet="AgeRestrictionTypes">
+                <ScalarProperty Name="RestrictionName" ColumnName="RestrictionName" />
+                <ScalarProperty Name="AgeRestrictionId" ColumnName="AgeRestrictionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

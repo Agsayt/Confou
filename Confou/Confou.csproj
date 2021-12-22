@@ -75,6 +75,9 @@
     <Compile Include="Entity\ActionType.cs">
       <DependentUpon>ConfouModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\AgeRestrictionTypes.cs">
+      <DependentUpon>ConfouModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\BillingInformation.cs">
       <DependentUpon>ConfouModel.tt</DependentUpon>
     </Compile>

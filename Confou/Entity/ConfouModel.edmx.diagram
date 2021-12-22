@@ -41,6 +41,8 @@
         <AssociationConnector Association="ConfouModel.FK_Logging_ActionType" />
         <AssociationConnector Association="ConfouModel.FK_DisactivatedAccounts_DisactivatedTypes" />
         <AssociationConnector Association="ConfouModel.FK_DisactivatedAccounts_Users" />
+        <EntityTypeShape EntityType="ConfouModel.AgeRestrictionTypes" Width="1.5" PointX="3.375" PointY="0.875" />
+        <AssociationConnector Association="ConfouModel.FK_Events_AgeRestrictionTypes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

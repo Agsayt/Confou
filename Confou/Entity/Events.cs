@@ -29,10 +29,12 @@ namespace Confou.Entity
         public System.DateTime EventDate { get; set; }
         public int EventStatus { get; set; }
         public int CreateDate { get; set; }
+        public int AgeRestriction { get; set; }
     
         public virtual EventStatuses EventStatuses { get; set; }
         public virtual Organizations Organizations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TicketType> TicketType { get; set; }
+        public virtual AgeRestrictionTypes AgeRestrictionTypes { get; set; }
     }
 }
