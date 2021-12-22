@@ -72,6 +72,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Entity\ActionType.cs">
+      <DependentUpon>ConfouModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\BillingInformation.cs">
       <DependentUpon>ConfouModel.tt</DependentUpon>
     </Compile>
@@ -92,6 +95,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ConfouModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DisactivatedAccounts.cs">
+      <DependentUpon>ConfouModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DisactivatedTypes.cs">
+      <DependentUpon>ConfouModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Events.cs">
       <DependentUpon>ConfouModel.tt</DependentUpon>

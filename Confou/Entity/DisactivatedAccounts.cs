@@ -12,16 +12,17 @@ namespace Confou.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Logging
+    public partial class DisactivatedAccounts
     {
-        public int LogId { get; set; }
-        public int Action { get; set; }
-        public string TargetTable { get; set; }
-        public int TargetId { get; set; }
-        public int Author { get; set; }
-        public string AuthorIP { get; set; }
-        public System.DateTime ActionDate { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string Reason { get; set; }
+        public System.DateTime Date { get; set; }
+        public int DisactivatedBy { get; set; }
+        public System.DateTime DisactivatedTime { get; set; }
+        public int DisactivatedType { get; set; }
     
-        public virtual ActionType ActionType { get; set; }
+        public virtual DisactivatedTypes DisactivatedTypes { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

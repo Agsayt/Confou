@@ -20,6 +20,7 @@ namespace Confou.Entity
             this.Buyer = new HashSet<Buyer>();
             this.Organizations = new HashSet<Organizations>();
             this.Seller = new HashSet<Seller>();
+            this.DisactivatedAccounts = new HashSet<DisactivatedAccounts>();
         }
     
         public int UserId { get; set; }
@@ -40,5 +41,7 @@ namespace Confou.Entity
         public virtual Roles Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Seller> Seller { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DisactivatedAccounts> DisactivatedAccounts { get; set; }
     }
 }

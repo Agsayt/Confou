@@ -622,7 +622,7 @@
             <PropertyRef Name="LogId" />
           </Key>
           <Property Name="LogId" Type="Int32" Nullable="false" />
-          <Property Name="Action" Type="String" Nullable="false" />
+          <Property Name="Action" Type="Int32" Nullable="false" />
           <Property Name="TargetTable" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TargetId" Type="Int32" Nullable="false" />
           <Property Name="Author" Type="Int32" Nullable="false" />

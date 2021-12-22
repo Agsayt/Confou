@@ -12,16 +12,18 @@ namespace Confou.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Logging
+    public partial class DisactivatedTypes
     {
-        public int LogId { get; set; }
-        public int Action { get; set; }
-        public string TargetTable { get; set; }
-        public int TargetId { get; set; }
-        public int Author { get; set; }
-        public string AuthorIP { get; set; }
-        public System.DateTime ActionDate { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DisactivatedTypes()
+        {
+            this.DisactivatedAccounts = new HashSet<DisactivatedAccounts>();
+        }
     
-        public virtual ActionType ActionType { get; set; }
+        public int DisactivatedTypeId { get; set; }
+        public string TypeName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DisactivatedAccounts> DisactivatedAccounts { get; set; }
     }
 }

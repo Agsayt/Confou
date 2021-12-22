@@ -12,16 +12,18 @@ namespace Confou.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Logging
+    public partial class ActionType
     {
-        public int LogId { get; set; }
-        public int Action { get; set; }
-        public string TargetTable { get; set; }
-        public int TargetId { get; set; }
-        public int Author { get; set; }
-        public string AuthorIP { get; set; }
-        public System.DateTime ActionDate { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ActionType()
+        {
+            this.Logging = new HashSet<Logging>();
+        }
     
-        public virtual ActionType ActionType { get; set; }
+        public int ActionId { get; set; }
+        public string ActionName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Logging> Logging { get; set; }
     }
 }

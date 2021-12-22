@@ -40,5 +40,8 @@ namespace Confou.Entity
         public virtual DbSet<TicketTypeStatuses> TicketTypeStatuses { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<SellerToTicket> SellerToTicket { get; set; }
+        public virtual DbSet<ActionType> ActionType { get; set; }
+        public virtual DbSet<DisactivatedAccounts> DisactivatedAccounts { get; set; }
+        public virtual DbSet<DisactivatedTypes> DisactivatedTypes { get; set; }
     }
 }
