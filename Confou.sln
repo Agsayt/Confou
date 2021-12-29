@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Confou", "Confou\Confou.csproj", "{DF9111AC-7570-40EA-A996-58B5452FC774}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfouLibrary", "ConfouLibrary\ConfouLibrary.csproj", "{C6CAEBF8-0571-4E71-8145-959C3FAA7B1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfouLibrary_Tests", "ConfouLibrary_Tests\ConfouLibrary_Tests.csproj", "{A767049E-B78D-4B19-9BA2-82D9EF307BE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{DF9111AC-7570-40EA-A996-58B5452FC774}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF9111AC-7570-40EA-A996-58B5452FC774}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF9111AC-7570-40EA-A996-58B5452FC774}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6CAEBF8-0571-4E71-8145-959C3FAA7B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6CAEBF8-0571-4E71-8145-959C3FAA7B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6CAEBF8-0571-4E71-8145-959C3FAA7B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6CAEBF8-0571-4E71-8145-959C3FAA7B1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A767049E-B78D-4B19-9BA2-82D9EF307BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A767049E-B78D-4B19-9BA2-82D9EF307BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A767049E-B78D-4B19-9BA2-82D9EF307BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A767049E-B78D-4B19-9BA2-82D9EF307BE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

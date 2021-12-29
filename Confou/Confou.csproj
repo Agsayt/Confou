@@ -72,81 +72,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entity\ActionType.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\AgeRestrictionTypes.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\BillingInformation.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Buyer.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\ConfouModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConfouModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\ConfouModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\ConfouModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConfouModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\DisactivatedAccounts.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\DisactivatedTypes.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Events.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\EventStatuses.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Logging.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Organizations.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Roles.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Seller.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\SellerToTicket.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\sysdiagrams.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\TicketPlacementType.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Tickets.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\TicketStatuses.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\TicketType.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\TicketTypeStatuses.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Users.cs">
-      <DependentUpon>ConfouModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -170,13 +95,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Entity\ConfouModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConfouModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Entity\ConfouModel.edmx.diagram">
-      <DependentUpon>ConfouModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -188,20 +106,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdditionalFiles\Confou_bd.sql" />
-    <Content Include="Entity\ConfouModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConfouModel.edmx</DependentUpon>
-      <LastGenOutput>ConfouModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entity\ConfouModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConfouModel.edmx</DependentUpon>
-      <LastGenOutput>ConfouModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ConfouLibrary\ConfouLibrary.csproj">
+      <Project>{c6caebf8-0571-4e71-8145-959c3faa7b1b}</Project>
+      <Name>ConfouLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
