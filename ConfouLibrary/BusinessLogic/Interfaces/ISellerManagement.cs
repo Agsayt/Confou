@@ -59,7 +59,13 @@ namespace ConfouLibrary.BusinessLogic.Interfaces
         /// <returns>Успешность продажи</returns>
         bool SellTicket(Seller seller, Events events, int seat, string email, Users author, out string error, Users user = null, TicketPlacementType placement = null);
 
-
+        /// <summary>
+        /// Подтверждение оплаты покупателем
+        /// </summary>
+        /// <param name="email">Почта покупателя</param>
+        /// <param name="author">Кто вносит запись</param>
+        /// <param name="error">Выходная ошибка</param>
+        /// <returns>Успешность подтверждения</returns>
         bool PaymentConfirmation(string email, Users author, out string error);
     }
 }
