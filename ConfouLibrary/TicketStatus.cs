@@ -14,7 +14,7 @@ namespace ConfouLibrary
     public enum TicketStatus : int
     {
         Sold = 0,
-        OnHold = 1,
-        Refund = 2
+        Refund = 1,
+        OnHold = 2
     }
 }

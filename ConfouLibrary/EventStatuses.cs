@@ -20,7 +20,7 @@ namespace ConfouLibrary
             this.Events = new HashSet<Events>();
         }
     
-        public int EventStatusId { get; set; }
+        public EventStatus EventStatusId { get; set; }
         public string StatusName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConfouLibrary.BusinessLogic
 {
-    internal class SellerManagement : ISellerManagement
+    public class SellerManagement : ISellerManagement
     {
         public bool CreateSeller(Seller seller, Users admin, out string error)
         {
@@ -21,13 +21,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(1, "Events", $"Admin '{admin.Login}' tries to create seller '{seller.SellerName}'", admin.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "Events", $"Admin '{admin.Login}' tries to create seller '{seller.SellerName}'", admin.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(1, "Events", $"Admin '{admin.Login}' tries to create seller '{seller.SellerName}'", admin.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "Events", $"Admin '{admin.Login}' tries to create seller '{seller.SellerName}'", admin.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -37,7 +37,7 @@ namespace ConfouLibrary.BusinessLogic
                     context.Dispose();
             }
 
-            Safety.LogActions.NewLog(1, "Events", $"Admin '{admin.Login}' created seller '{seller.SellerName}'", admin.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.CREATE, "Events", $"Admin '{admin.Login}' created seller '{seller.SellerName}'", admin.UserId, DateTime.Now);
             error = null;
             return true;
         }
@@ -63,15 +63,15 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(3, "BillingInformation", $"Buyer '{email}' doesn't confirmed his payment", author.UserId, DateTime.Now);
-                Safety.LogActions.NewLog(3, "Tickets", $"Ticket doesn't solded to buyer '{email}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "BillingInformation", $"Buyer '{email}' doesn't confirmed his payment", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "Tickets", $"Ticket doesn't solded to buyer '{email}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(3, "BillingInformation", $"Buyer '{email}' doesn't confirmed his payment", author.UserId, DateTime.Now);
-                Safety.LogActions.NewLog(3, "Tickets", $"Ticket doesn't solded to buyer '{email}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "BillingInformation", $"Buyer '{email}' doesn't confirmed his payment", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "Tickets", $"Ticket doesn't solded to buyer '{email}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -80,9 +80,9 @@ namespace ConfouLibrary.BusinessLogic
                 if (context != null)
                     context.Dispose();
             }
-            Safety.LogActions.NewLog(3, "BillingInformation", $"Buyer '{email}' confirmed his payment", author.UserId, DateTime.Now);
-            Safety.LogActions.NewLog(3, "Tickets", $"Ticket solded to buyer '{email}'", author.UserId, DateTime.Now);
-            Safety.LogActions.NewLog(5, "Tickets", $"Seller '{author.Login}' sold ticket for buyer '{email}'", author.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.UPDATE, "BillingInformation", $"Buyer '{email}' confirmed his payment", author.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.UPDATE, "Tickets", $"Ticket solded to buyer '{email}'", author.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.SELL, "Tickets", $"Seller '{author.Login}' sold ticket for buyer '{email}'", author.UserId, DateTime.Now);
             error = null;
             return true;
         }
@@ -107,13 +107,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(4, "Tickets", $"User '{user.Login}' tries to refund seller tickets for event '{seller.SellerName}'", user.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.REFUND, "Tickets", $"User '{user.Login}' tries to refund seller tickets for event '{seller.SellerName}'", user.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(4, "Tickets", $"User '{user.Login}' tries to refund seller tickets for event'{seller.SellerName}'", user.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.REFUND, "Tickets", $"User '{user.Login}' tries to refund seller tickets for event'{seller.SellerName}'", user.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -123,7 +123,7 @@ namespace ConfouLibrary.BusinessLogic
                     context.Dispose();
             }
 
-            Safety.LogActions.NewLog(4, "Events", $"User '{user.Login}' refunded seller tickets from event '{seller.SellerName}'", user.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.REFUND, "Events", $"User '{user.Login}' refunded seller tickets from event '{seller.SellerName}'", user.UserId, DateTime.Now);
             error = null;
             return true;
         }
@@ -141,13 +141,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(4, "Tickets", $"User '{user.Login}' tries to refund seller tickets for event '{seller.SellerName}'", user.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.REFUND, "Tickets", $"User '{user.Login}' tries to refund seller tickets for event '{seller.SellerName}'", user.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(4, "Tickets", $"User '{user.Login}' tries to refund seller tickets for event '{seller.SellerName}'", user.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.REFUND, "Tickets", $"User '{user.Login}' tries to refund seller tickets for event '{seller.SellerName}'", user.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -157,7 +157,7 @@ namespace ConfouLibrary.BusinessLogic
                     context.Dispose();
             }
 
-            Safety.LogActions.NewLog(4, "Tickets", $"User '{user.Login}' tries to refund seller tickets for event '{seller.SellerName}'", user.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.REFUND, "Tickets", $"User '{user.Login}' tries to refund seller tickets for event '{seller.SellerName}'", user.UserId, DateTime.Now);
             error = null;
             return true;
         }
@@ -202,7 +202,7 @@ namespace ConfouLibrary.BusinessLogic
                 bool result = tm.CreateTicket(newTicket, author, out string errorMessage);
                 if (!result)
                 {
-                    Safety.LogActions.NewLog(1, "Tickets", $"User '{author.Login}' tries to create a ticket for '{email}'", author.UserId, DateTime.Now);
+                    Safety.LogActions.NewLog(Action.CREATE, "Tickets", $"User '{author.Login}' tries to create a ticket for '{email}'", author.UserId, DateTime.Now);
                     error = errorMessage;
                     return false;
                 }
@@ -211,15 +211,15 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(1, "BillingInformation", $"User '{author.Login}' tries to create a billing for '{email}'", author.UserId, DateTime.Now);
-                Safety.LogActions.NewLog(1, "Buyer", $"User '{author.Login}' tries to create a buyer for '{email}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "BillingInformation", $"User '{author.Login}' tries to create a billing for '{email}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "Buyer", $"User '{author.Login}' tries to create a buyer for '{email}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(1, "BillingInformation", $"User '{author.Login}' tries to create a billing for '{email}'", author.UserId, DateTime.Now);
-                Safety.LogActions.NewLog(1, "Buyer", $"User '{author.Login}' tries to create a buyer for '{email}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "BillingInformation", $"User '{author.Login}' tries to create a billing for '{email}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "Buyer", $"User '{author.Login}' tries to create a buyer for '{email}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -229,9 +229,9 @@ namespace ConfouLibrary.BusinessLogic
                     context.Dispose();
             }
 
-            Safety.LogActions.NewLog(1, "Buyer", $"Seller '{author.Login}' created buyer '{email}'", author.UserId, DateTime.Now);
-            Safety.LogActions.NewLog(1, "BillingInformation", $"Seller '{author.Login}' created billingInformation for buyer'{email}'", author.UserId, DateTime.Now);
-            Safety.LogActions.NewLog(1, "Tickets", $"Seller '{author.Login}' created ticket for buyer '{email}'", author.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.CREATE, "Buyer", $"Seller '{author.Login}' created buyer '{email}'", author.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.CREATE, "BillingInformation", $"Seller '{author.Login}' created billingInformation for buyer'{email}'", author.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.CREATE, "Tickets", $"Seller '{author.Login}' created ticket for buyer '{email}'", author.UserId, DateTime.Now);
             error = null;
             return true;
         }
@@ -249,13 +249,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(3, "Events", $"Admin '{admin.Login}' tries to update seller '{seller.SellerId}'", admin.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "Events", $"Admin '{admin.Login}' tries to update seller '{seller.SellerId}'", admin.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(3, "Events", $"Admin '{admin.Login}' tries to update seller '{seller.SellerId}'", admin.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "Events", $"Admin '{admin.Login}' tries to update seller '{seller.SellerId}'", admin.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -265,7 +265,7 @@ namespace ConfouLibrary.BusinessLogic
                     context.Dispose();
             }
 
-            Safety.LogActions.NewLog(3, "Events", $"Admin '{admin.Login}' updated seller '{seller.SellerId}'", admin.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.UPDATE, "Events", $"Admin '{admin.Login}' updated seller '{seller.SellerId}'", admin.UserId, DateTime.Now);
             error = null;
             return true;
         }

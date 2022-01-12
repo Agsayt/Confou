@@ -12,24 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ConfouLibrary;
 
-namespace Confou
+namespace ConfouNet5
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-
-            //TODO: Не оптимальный вариант инициализации нужного класса и работы с самой библиотекой, найти другой вариант
-            //var c = new ConfouLibrary.BusinessLogic.Users();
-            //c.CreateUser(new Users() { }, out string error);
-
-            
         }
     }
 }

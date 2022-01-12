@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConfouLibrary.BusinessLogic
 {
-    internal class TicketManagement : ITicketManagement
+    public class TicketManagement : ITicketManagement
     {
         public bool CreateTicket(Tickets ticket, Users author, out string error)
         {
@@ -21,13 +21,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(1, "Tickets", $"User '{author.Login}' tries to create ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "Tickets", $"User '{author.Login}' tries to create ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(1, "Tickets", $"User '{author.Login}' tries to create ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "Tickets", $"User '{author.Login}' tries to create ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -37,7 +37,7 @@ namespace ConfouLibrary.BusinessLogic
                     context.Dispose();
             }
 
-            Safety.LogActions.NewLog(1, "Tickets", $"User '{author.Login}' created ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.CREATE, "Tickets", $"User '{author.Login}' created ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
             error = null;
             return true;
         }
@@ -59,13 +59,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(1, "Tickets", $"User '{author.Login}' tries to create ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "Tickets", $"User '{author.Login}' tries to create ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(1, "Tickets", $"User '{author.Login}' tries to create ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "Tickets", $"User '{author.Login}' tries to create ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -75,7 +75,7 @@ namespace ConfouLibrary.BusinessLogic
                     context.Dispose();
             }
 
-            Safety.LogActions.NewLog(1, "Tickets", $"User '{author.Login}' created ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.CREATE, "Tickets", $"User '{author.Login}' created ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
             error = null;
             return true;
         }
@@ -93,13 +93,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(3, "Tickets", $"User '{author.Login}' tries to update ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "Tickets", $"User '{author.Login}' tries to update ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(3, "Tickets", $"User '{author.Login}' tries to update ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "Tickets", $"User '{author.Login}' tries to update ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -109,7 +109,7 @@ namespace ConfouLibrary.BusinessLogic
                     context.Dispose();
             }
 
-            Safety.LogActions.NewLog(3, "Tickets", $"User '{author.Login}' updated ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.UPDATE, "Tickets", $"User '{author.Login}' updated ticket type '{ticketType.TicketTypeId}'", author.UserId, DateTime.Now);
             error = null;
             return true;
         }
@@ -210,13 +210,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(3, "Tickets", $"User '{author.Login}' tries to update ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "Tickets", $"User '{author.Login}' tries to update ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(3, "Tickets", $"User '{author.Login}' tries to update ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "Tickets", $"User '{author.Login}' tries to update ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -226,7 +226,7 @@ namespace ConfouLibrary.BusinessLogic
                     context.Dispose();
             }
 
-            Safety.LogActions.NewLog(3, "Tickets", $"User '{author.Login}' updates ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.UPDATE, "Tickets", $"User '{author.Login}' updates ticket '{ticket.TicketId}'", author.UserId, DateTime.Now);
             error = null;
             return true;
         }

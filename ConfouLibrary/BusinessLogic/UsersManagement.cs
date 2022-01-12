@@ -9,7 +9,7 @@ namespace ConfouLibrary.BusinessLogic
 {
     public class UsersManagement : IUserManagement
     {
-        public bool ChangeRole(Guid userId, Guid roleId, Guid adminId, out string error)
+        public bool ChangeRole(Guid userId, UserRole role, Guid adminId, out string error)
         {
             try
             {
@@ -17,16 +17,16 @@ namespace ConfouLibrary.BusinessLogic
                 var user = context.Users.Where(x => x.UserId == userId).FirstOrDefault();
                 if (user != null)
                 {
-                    user.RoleId = roleId; 
+                    user.RoleId = role; 
                     context.SaveChanges();
-                    Safety.LogActions.NewLog(3, "Users", $"Admin changes role of user '{user.Login}'", adminId, DateTime.Now);
+                    Safety.LogActions.NewLog(Action.UPDATE, "Users", $"Admin changes role of user '{user.Login}'", adminId, DateTime.Now);
                 }
                 context.Dispose();
             }
             catch (Exception ex)
             {
                 error = ex.InnerException.InnerException.Message;
-                Safety.LogActions.NewLog(3, "Users", $"Admin tries to change role of user with Guid '{userId}'", adminId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "Users", $"Admin tries to change role of user with Guid '{userId}'", adminId, DateTime.Now);
                 return false;
             }
 
@@ -38,17 +38,21 @@ namespace ConfouLibrary.BusinessLogic
         {
             try
             {
+
                 var context = new ConfouEntities();
-                user.PasswordHash = BusinessLogic.Safety.Encryption.EncryptPassword(user.PasswordHash, user.Login);
-                context.Users.Add(user);
-                Safety.LogActions.NewLog(1, "Users", $"Admin creates user with login {user.Login}'", user.CreateAuthor, DateTime.Now);
-                context.SaveChanges();
-                context.Dispose();
+                
+                    user.PasswordHash = BusinessLogic.Safety.Encryption.EncryptPassword(user.PasswordHash, user.Login);
+                    context.Users.Add(user);
+                    Safety.LogActions.NewLog(Action.CREATE, "Users", $"Admin creates user with login {user.Login}'", user.CreateAuthor, DateTime.Now);
+                    context.SaveChanges();
+                    context.Dispose();
+                
+                
             }
             catch (Exception ex)
             {
-                error = ex.InnerException.InnerException.Message;
-                Safety.LogActions.NewLog(1, "Users", $"Admin tries to creates user with login {user.Login}'", user.CreateAuthor, DateTime.Now);
+                error = ex.Message;
+                Safety.LogActions.NewLog(Action.CREATE, "Users", $"Admin tries to creates user with login {user.Login}'", user.CreateAuthor, DateTime.Now);
                 return false;
             }
 
@@ -74,13 +78,13 @@ namespace ConfouLibrary.BusinessLogic
 
                 context.DisactivatedAccounts.Add(disAccount);
                 context.SaveChanges();
-                Safety.LogActions.NewLog(2, "Users", $"Admin disable user with id '{userId}' ", adminId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.DISABLE, "Users", $"Admin disable user with id '{userId}' ", adminId, DateTime.Now);
                 context.Dispose();
             }
             catch (Exception ex)
             {
                 error = ex.InnerException.InnerException.Message;
-                Safety.LogActions.NewLog(2, "Users", $"Admin tries to disable user with id '{userId}' ", adminId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.DISABLE, "Users", $"Admin tries to disable user with id '{userId}' ", adminId, DateTime.Now);
                 return false;
             }
             finally
@@ -90,6 +94,37 @@ namespace ConfouLibrary.BusinessLogic
 
             error = null;
             return true;
+        }
+
+        public Users GetUserByID(Guid id, out string error)
+        {
+            Users user = null;
+            ConfouEntities context = null;
+            try
+            {
+                context = new ConfouEntities();
+                
+                user = context.Users.Where(x => x.UserId == id).FirstOrDefault();                
+
+                context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                error = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+            }
+            finally
+            {
+                if (context != null)
+                    context.Dispose();
+            }
+
+
+            error = null;
+            return user;
         }
 
         //TODO: Неоптимально, т.к. если будет более тысячи записей, то программа "зависнет" или долго будет обрабатывать запрос
@@ -139,13 +174,13 @@ namespace ConfouLibrary.BusinessLogic
                 {
                     originalUser = user;
                     context.SaveChanges();
-                    Safety.LogActions.NewLog(3, "Users", $"Admin update user with login '{user.Login}' ", user.CreateAuthor, DateTime.Now);
+                    Safety.LogActions.NewLog(Action.UPDATE, "Users", $"Admin update user with login '{user.Login}' ", user.CreateAuthor, DateTime.Now);
                 }
             }
             catch (Exception ex)
             {
                 error = ex.Message;
-                Safety.LogActions.NewLog(3, "Users", $"Admin tries to update user with login '{user.Login}' ", user.CreateAuthor, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, "Users", $"Admin tries to update user with login '{user.Login}' ", user.CreateAuthor, DateTime.Now);
                 return false;
             }
             finally

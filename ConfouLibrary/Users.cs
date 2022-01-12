@@ -26,13 +26,16 @@ namespace ConfouLibrary
         public System.Guid UserId { get; set; }
         public string Login { get; set; }
         public string PasswordHash { get; set; }
-        public System.Guid RoleId { get; set; }
+        public UserRole RoleId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public bool Enabled { get; set; }
         public System.DateTime CreateDate { get; set; }
         public System.Guid CreateAuthor { get; set; }
+        public byte[] Image { get; set; }
+        public bool IsDoubleAuth { get; set; }
+        public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Buyer> Buyer { get; set; }

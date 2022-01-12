@@ -9,26 +9,40 @@ namespace ConfouLibrary.BusinessLogic.Safety
 {
     internal static class LogActions
     {
-        public static void NewLog(int actionType, string targetTable, string description, Guid author, DateTime actionDate)
+
+
+        /// <summary>
+        /// Создание нового лога
+        /// </summary>
+        /// <param name="actionType">Тип действия</param>
+        /// <param name="targetTable">Объект, над которым проводилось действие</param>
+        /// <param name="description">Описание действия</param>
+        /// <param name="author">Вызвавший действие</param>
+        /// <param name="actionDate">Время действия</param>
+        public static void NewLog(Action actionType, string targetTable, string description, Guid author, DateTime actionDate)
         {
             var context = new ConfouEntities();
+            
+                context.Logging.Add(new Logging()
+                {
+                    LogId = Guid.NewGuid(),
+                    Action = actionType,
+                    TargetTable = targetTable,
+                    Description = description,
+                    Author = author,
+                    AuthorIP = GetIPAddress(),
+                    ActionDate = DateTime.Now
+                });
 
-            context.Logging.Add(new Logging()
-            {
-                LogId = Guid.NewGuid(),
-                Action = actionType,
-                TargetTable = targetTable,
-                Description = description,
-                Author = author,
-                AuthorIP = GetIPAddress(),
-                ActionDate = DateTime.Now
-            });
-
-            context.SaveChanges();
-            context.Dispose();
+                context.SaveChanges();
+                context.Dispose();
+            
         }
 
-
+        /// <summary>
+        /// Получение IP адреса
+        /// </summary>
+        /// <returns>Строка с адресом IPv4</returns>
         private static string GetIPAddress()
         {
             string IPAddress = null;

@@ -47,5 +47,6 @@ namespace ConfouLibrary
         public virtual DbSet<TicketType> TicketType { get; set; }
         public virtual DbSet<TicketTypeStatuses> TicketTypeStatuses { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Verification> Verification { get; set; }
     }
 }

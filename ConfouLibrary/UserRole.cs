@@ -10,18 +10,13 @@
 namespace ConfouLibrary
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Logging
+    public enum UserRole : int
     {
-        public System.Guid LogId { get; set; }
-        public Action Action { get; set; }
-        public string TargetTable { get; set; }
-        public string Description { get; set; }
-        public System.Guid Author { get; set; }
-        public string AuthorIP { get; set; }
-        public System.DateTime ActionDate { get; set; }
-    
-        public virtual ActionType ActionType { get; set; }
+        Administrator = 0,
+        Seller = 1,
+        Organizator = 2,
+        Buyer = 3,
+        User = 4
     }
 }

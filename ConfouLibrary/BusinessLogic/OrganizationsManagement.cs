@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConfouLibrary.BusinessLogic
 {
-    internal class OrganizationsManagement : IOrganizationsManagement
+    public class OrganizationsManagement : IOrganizationsManagement
     {
         public bool CreateOrganization(Organizations organization, ConfouLibrary.Users admin, out string error)
         {
@@ -21,13 +21,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                Safety.LogActions.NewLog(1, "Organizations", $"Admin '{admin.Login}' tries to create organization '{organization.OrganizationName}'", admin.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "Organizations", $"Admin '{admin.Login}' tries to create organization '{organization.OrganizationName}'", admin.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(1, "Organizations", $"Admin '{admin.Login}' tries to create organization '{organization.OrganizationName}'", admin.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, "Organizations", $"Admin '{admin.Login}' tries to create organization '{organization.OrganizationName}'", admin.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -37,7 +37,7 @@ namespace ConfouLibrary.BusinessLogic
                     context.Dispose();
             }
 
-            Safety.LogActions.NewLog(1, "Organizations", $"Admin '{admin.Login}' created organization '{organization.OrganizationName}'", admin.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.CREATE, "Organizations", $"Admin '{admin.Login}' created organization '{organization.OrganizationName}'", admin.UserId, DateTime.Now);
             error = null;
             return true;
         }

@@ -28,9 +28,10 @@ namespace ConfouLibrary
         public string EventAddress { get; set; }
         public string EventDescription { get; set; }
         public System.DateTime EventDate { get; set; }
-        public int EventStatus { get; set; }
+        public EventStatus EventStatus { get; set; }
         public System.DateTime CreateDate { get; set; }
         public int AgeRestriction { get; set; }
+        public byte[] Afisha { get; set; }
     
         public virtual AgeRestrictionTypes AgeRestrictionTypes { get; set; }
         public virtual EventStatuses EventStatuses { get; set; }

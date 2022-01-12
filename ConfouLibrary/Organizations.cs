@@ -28,6 +28,7 @@ namespace ConfouLibrary
         public System.DateTime CreateDate { get; set; }
         public System.Guid CreateAuthor { get; set; }
         public bool Enabled { get; set; }
+        public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Events> Events { get; set; }

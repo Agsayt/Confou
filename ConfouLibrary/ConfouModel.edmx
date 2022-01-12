@@ -79,6 +79,7 @@
           <Property Name="EventStatus" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="AgeRestriction" Type="int" Nullable="false" />
+          <Property Name="Afisha" Type="binary" MaxLength="8000" />
         </EntityType>
         <EntityType Name="EventStatuses">
           <Key>
@@ -96,7 +97,7 @@
           <Property Name="TargetTable" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Author" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="AuthorIP" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="AuthorIP" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ActionDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Organizations">
@@ -111,13 +112,14 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="CreateAuthor" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Enabled" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="RoleName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Seller">
           <Key>
@@ -211,13 +213,25 @@
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Login" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="PasswordHash" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="MiddleName" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Enabled" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="CreateAuthor" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Image" Type="binary" MaxLength="100" />
+          <Property Name="IsDoubleAuth" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Verification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="VerifyNum" Type="varchar" MaxLength="8" />
+          <Property Name="IsDoubleAuth" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_BillingInformation_Buyer">
           <End Role="Buyer" Type="Self.Buyer" Multiplicity="1" />
@@ -530,6 +544,7 @@
           <EntitySet Name="TicketType" EntityType="Self.TicketType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TicketTypeStatuses" EntityType="Self.TicketTypeStatuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Verification" EntityType="Self.Verification" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BillingInformation_Buyer" Association="Self.FK_BillingInformation_Buyer">
             <End Role="Buyer" EntitySet="Buyer" />
             <End Role="BillingInformation" EntitySet="BillingInformation" />
@@ -635,7 +650,7 @@
           <Key>
             <PropertyRef Name="ActionId" />
           </Key>
-          <Property Name="ActionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionId" Type="BConfouModel.Action" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ActionName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Logging" Relationship="Self.FK_Logging_ActionType" FromRole="ActionType" ToRole="Logging" />
         </EntityType>
@@ -715,9 +730,10 @@
           <Property Name="EventAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EventDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EventStatus" Type="Int32" Nullable="false" />
+          <Property Name="EventStatus" Type="BConfouModel.EventStatus" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AgeRestriction" Type="Int32" Nullable="false" />
+          <Property Name="Afisha" Type="Binary" MaxLength="8000" FixedLength="true" />
           <NavigationProperty Name="AgeRestrictionTypes" Relationship="Self.FK_Events_AgeRestrictionTypes" FromRole="Events" ToRole="AgeRestrictionTypes" />
           <NavigationProperty Name="EventStatuses" Relationship="Self.FK_Events_EventStatuses" FromRole="Events" ToRole="EventStatuses" />
           <NavigationProperty Name="Organizations" Relationship="Self.FK_Events_Organizations" FromRole="Events" ToRole="Organizations" />
@@ -728,7 +744,7 @@
           <Key>
             <PropertyRef Name="EventStatusId" />
           </Key>
-          <Property Name="EventStatusId" Type="Int32" Nullable="false" />
+          <Property Name="EventStatusId" Type="BConfouModel.EventStatus" Nullable="false" />
           <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_EventStatuses" FromRole="EventStatuses" ToRole="Events" />
         </EntityType>
@@ -737,11 +753,11 @@
             <PropertyRef Name="LogId" />
           </Key>
           <Property Name="LogId" Type="Guid" Nullable="false" />
-          <Property Name="Action" Type="Int32" Nullable="false" />
+          <Property Name="Action" Type="BConfouModel.Action" Nullable="false" />
           <Property Name="TargetTable" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Author" Type="Guid" Nullable="false" />
-          <Property Name="AuthorIP" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AuthorIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="ActionType" Relationship="Self.FK_Logging_ActionType" FromRole="Logging" ToRole="ActionType" />
         </EntityType>
@@ -756,16 +772,17 @@
           <Property Name="Fee" Type="Decimal" Precision="2" Scale="2" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateAuthor" Type="Guid" Nullable="false" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Organizations" FromRole="Organizations" ToRole="Events" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Organizations_Users" FromRole="Organizations" ToRole="Users" />
-          <Property Name="Enabled" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="Guid" Nullable="false" />
-          <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleId" Type="BConfouModel.UserRole" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
         </EntityType>
         <EntityType Name="Seller">
@@ -860,10 +877,10 @@
           <Property Name="TicketAmount" Type="Int32" Nullable="false" />
           <Property Name="TicketTypeStatus" Type="Int32" Nullable="false" />
           <Property Name="TicketVisibility" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="TicketPool" Relationship="Self.FK_TicketPool_TicketType" FromRole="TicketType" ToRole="TicketPool" />
-          <NavigationProperty Name="TicketTypeStatuses" Relationship="Self.FK_TicketType_TicketTypeStatuses" FromRole="TicketType" ToRole="TicketTypeStatuses" />
           <Property Name="Author" Type="Guid" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TicketPool" Relationship="Self.FK_TicketPool_TicketType" FromRole="TicketType" ToRole="TicketPool" />
+          <NavigationProperty Name="TicketTypeStatuses" Relationship="Self.FK_TicketType_TicketTypeStatuses" FromRole="TicketType" ToRole="TicketTypeStatuses" />
         </EntityType>
         <EntityType Name="TicketTypeStatuses">
           <Key>
@@ -880,18 +897,30 @@
           <Property Name="UserId" Type="Guid" Nullable="false" />
           <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="BConfouModel.UserRole" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MiddleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateAuthor" Type="Guid" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="100" FixedLength="true" />
+          <Property Name="IsDoubleAuth" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Buyer" Relationship="Self.FK_Buyer_Users" FromRole="Users" ToRole="Buyer" />
           <NavigationProperty Name="DisactivatedAccounts" Relationship="Self.FK_DisactivatedAccounts_Users" FromRole="Users" ToRole="DisactivatedAccounts" />
           <NavigationProperty Name="Organizations" Relationship="Self.FK_Organizations_Users" FromRole="Users" ToRole="Organizations" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
           <NavigationProperty Name="Seller" Relationship="Self.FK_Seller_Users" FromRole="Users" ToRole="Seller" />
+        </EntityType>
+        <EntityType Name="Verification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectId" Type="Guid" Nullable="false" />
+          <Property Name="VerifyNum" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="IsDoubleAuth" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Logging_ActionType">
           <End Role="ActionType" Type="Self.ActionType" Multiplicity="1" />
@@ -1204,6 +1233,7 @@
           <EntitySet Name="TicketType" EntityType="Self.TicketType" />
           <EntitySet Name="TicketTypeStatuses" EntityType="Self.TicketTypeStatuses" />
           <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Verification" EntityType="Self.Verification" />
           <AssociationSet Name="FK_Logging_ActionType" Association="Self.FK_Logging_ActionType">
             <End Role="ActionType" EntitySet="ActionType" />
             <End Role="Logging" EntitySet="Logging" />
@@ -1301,10 +1331,29 @@
             <End Role="TicketType" EntitySet="TicketType" />
           </AssociationSet>
         </EntityContainer>
+        <EnumType Name="UserRole">
+          <Member Name="Administrator" />
+          <Member Name="Seller" />
+          <Member Name="Organizator" />
+          <Member Name="Buyer" />
+          <Member Name="User" />
+        </EnumType>
+        <EnumType Name="EventStatus">
+        <Member Name="Canceled" />
+          <Member Name="OnSale" />
+        </EnumType>
         <EnumType Name="TicketStatus">
-          <Member Name="Sold" />
-          <Member Name="OnHold" />
+        <Member Name="Sold" />
           <Member Name="Refund" />
+          <Member Name="OnHold" />
+        </EnumType>
+        <EnumType Name="Action">
+          <Member Name="INSERT" />
+          <Member Name="CREATE" />
+          <Member Name="UPDATE" />
+          <Member Name="DISABLE" />
+          <Member Name="REFUND" />
+          <Member Name="SELL" />
         </EnumType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1392,6 +1441,7 @@
                 <ScalarProperty Name="EventStatus" ColumnName="EventStatus" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="AgeRestriction" ColumnName="AgeRestriction" />
+                <ScalarProperty Name="Afisha" ColumnName="Afisha" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1419,7 +1469,6 @@
           <EntitySetMapping Name="Organizations">
             <EntityTypeMapping TypeName="BConfouModel.Organizations">
               <MappingFragment StoreEntitySet="Organizations">
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
                 <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
                 <ScalarProperty Name="AssigneeId" ColumnName="AssigneeId" />
                 <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
@@ -1427,6 +1476,8 @@
                 <ScalarProperty Name="Fee" ColumnName="Fee" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateAuthor" ColumnName="CreateAuthor" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1513,14 +1564,14 @@
           <EntitySetMapping Name="TicketType">
             <EntityTypeMapping TypeName="BConfouModel.TicketType">
               <MappingFragment StoreEntitySet="TicketType">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="TicketTypeId" ColumnName="TicketTypeId" />
                 <ScalarProperty Name="TicketName" ColumnName="TicketName" />
                 <ScalarProperty Name="TicketPrice" ColumnName="TicketPrice" />
                 <ScalarProperty Name="TicketAmount" ColumnName="TicketAmount" />
                 <ScalarProperty Name="TicketTypeStatus" ColumnName="TicketTypeStatus" />
                 <ScalarProperty Name="TicketVisibility" ColumnName="TicketVisibility" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1545,6 +1596,19 @@
                 <ScalarProperty Name="Enabled" ColumnName="Enabled" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateAuthor" ColumnName="CreateAuthor" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="IsDoubleAuth" ColumnName="IsDoubleAuth" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Verification">
+            <EntityTypeMapping TypeName="BConfouModel.Verification">
+              <MappingFragment StoreEntitySet="Verification">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObjectId" ColumnName="ObjectId" />
+                <ScalarProperty Name="VerifyNum" ColumnName="VerifyNum" />
+                <ScalarProperty Name="IsDoubleAuth" ColumnName="IsDoubleAuth" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

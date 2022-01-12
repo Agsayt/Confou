@@ -9,6 +9,14 @@ namespace ConfouLibrary.BusinessLogic.Safety
 {
     internal class Encryption
     {
+
+
+        /// <summary>
+        /// Шифрование пароля
+        /// </summary>
+        /// <param name="password">Пароль</param>
+        /// <param name="salt">Соль для пароля</param>
+        /// <returns>Зашифрованный пароль</returns>
         public static string EncryptPassword(string password, string salt)
         {
             byte[] saltToByte = Encoding.UTF8.GetBytes(salt);
@@ -23,6 +31,14 @@ namespace ConfouLibrary.BusinessLogic.Safety
             return encryptedPassw;
         }
 
+
+        /// <summary>
+        /// Подтверждение пароля
+        /// </summary>
+        /// <param name="enteredPassword">Пароль на проверку</param>
+        /// <param name="salt">Соль</param>
+        /// <param name="storedPassword">Хранящийся пароль</param>
+        /// <returns></returns>
         public static bool VerifyPassword(string enteredPassword, string salt, string storedPassword)
         {
             byte[] saltToByte = Convert.FromBase64String(salt);

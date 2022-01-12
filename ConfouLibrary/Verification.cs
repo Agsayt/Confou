@@ -12,16 +12,11 @@ namespace ConfouLibrary
     using System;
     using System.Collections.Generic;
     
-    public partial class Logging
+    public partial class Verification
     {
-        public System.Guid LogId { get; set; }
-        public Action Action { get; set; }
-        public string TargetTable { get; set; }
-        public string Description { get; set; }
-        public System.Guid Author { get; set; }
-        public string AuthorIP { get; set; }
-        public System.DateTime ActionDate { get; set; }
-    
-        public virtual ActionType ActionType { get; set; }
+        public int Id { get; set; }
+        public System.Guid ObjectId { get; set; }
+        public string VerifyNum { get; set; }
+        public bool IsDoubleAuth { get; set; }
     }
 }

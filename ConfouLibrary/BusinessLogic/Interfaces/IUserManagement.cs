@@ -10,6 +10,14 @@ namespace ConfouLibrary.BusinessLogic
     internal interface IUserManagement
     {
         /// <summary>
+        /// Получение сущности пользователя по его ID
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
+        /// <param name="error">Выходная ошибка0</param>
+        /// <returns>Сущность пользователя</returns>
+        Users GetUserByID(Guid id, out string error);
+
+        /// <summary>
         /// Создание нового пользователя
         /// </summary>
         /// <param name="user">Сущность пользователя</param>
@@ -43,7 +51,7 @@ namespace ConfouLibrary.BusinessLogic
         /// <param name="roleId">Идентификатор роли</param>
         /// <param name="error">Выходная ошибка</param>
         /// <returns>Успешность имзенения роли</returns>
-        bool ChangeRole(Guid userId, Guid roleId, Guid adminId, out string error);
+        bool ChangeRole(Guid userId, UserRole role, Guid adminId, out string error);
 
         /// <summary>
         /// Авторизация пользователя

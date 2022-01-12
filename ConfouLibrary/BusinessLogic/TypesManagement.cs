@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConfouLibrary.BusinessLogic
 {
-    internal class TypesManagement : ITypeManagement
+    public class TypesManagement : ITypeManagement
     {
         public bool CreateNewEntry<T>(T entry, ConfouLibrary.Users admin, out string error, string entryName, int number = 0)
         {
@@ -75,13 +75,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException e) //TODO: Использовать везде
             {
-                Safety.LogActions.NewLog(1, $"{typeof(T)}", $"Admin '{admin.Login}' tries to create enum '{entryName}'", admin.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, $"{typeof(T)}", $"Admin '{admin.Login}' tries to create enum '{entryName}'", admin.UserId, DateTime.Now);
                 error = e.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(1, $"{typeof(T)}", $"Admin '{admin.Login}' tries to create enum '{entryName}'", admin.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.CREATE, $"{typeof(T)}", $"Admin '{admin.Login}' tries to create enum '{entryName}'", admin.UserId, DateTime.Now);
                 error = ex.Message;                
                 return false;
             }
@@ -90,7 +90,7 @@ namespace ConfouLibrary.BusinessLogic
                 context.Dispose();
             }
 
-            Safety.LogActions.NewLog(1, $"{typeof(T)}", $"Admin '{admin.Login}' created enum '{entryName}'", admin.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.CREATE, $"{typeof(T)}", $"Admin '{admin.Login}' created enum '{entryName}'", admin.UserId, DateTime.Now);
             context.SaveChanges();
             error = null;
             return true;
@@ -214,13 +214,13 @@ namespace ConfouLibrary.BusinessLogic
             }
             catch (DbUpdateException e) //TODO: Использовать везде
             {
-                Safety.LogActions.NewLog(3, $"{typeof(T)}", $"Admin '{admin.Login}' tries to rename enum to '{entryName}'", admin.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, $"{typeof(T)}", $"Admin '{admin.Login}' tries to rename enum to '{entryName}'", admin.UserId, DateTime.Now);
                 error = e.Message;
                 return false;
             }
             catch (Exception ex)
             {
-                Safety.LogActions.NewLog(3, $"{typeof(T)}", $"Admin '{admin.Login}' tries to rename enum to '{entryName}'", admin.UserId, DateTime.Now);
+                Safety.LogActions.NewLog(Action.UPDATE, $"{typeof(T)}", $"Admin '{admin.Login}' tries to rename enum to '{entryName}'", admin.UserId, DateTime.Now);
                 error = ex.Message;
                 return false;
             }
@@ -230,7 +230,7 @@ namespace ConfouLibrary.BusinessLogic
             }
 
             //TODO: адекватнее нужно придумать систему логирования, ибо хрень.
-            Safety.LogActions.NewLog(3, $"{typeof(T)}", $"Admin '{admin.Login}' renames enum to '{entryName}'", admin.UserId, DateTime.Now);
+            Safety.LogActions.NewLog(Action.UPDATE, $"{typeof(T)}", $"Admin '{admin.Login}' renames enum to '{entryName}'", admin.UserId, DateTime.Now);
             context.SaveChanges();
             error = null;
             return true;

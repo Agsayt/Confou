@@ -10,14 +10,14 @@ namespace ConfouLibrary_Tests
         [TestMethod]
         public void CorrectUserCreation()
         {
-            var guid = Guid.Parse("1C787089-B541-4F6E-9AAB-60EC0AC461CE");
+            
 
             var user = new Users()
             {
                 UserId = Guid.NewGuid(),
                 Login = "CorrectTest2",
                 PasswordHash = "PasswordWithoutHash",
-                RoleId = guid,
+                RoleId = ConfouLibrary.UserRole.Administrator,
                 FirstName = "Юзр",
                 LastName = "Юзрев",
                 MiddleName = "Юзревич",
