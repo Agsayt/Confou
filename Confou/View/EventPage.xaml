@@ -1,0 +1,51 @@
+﻿<Window x:Class="Confou.View.EventPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Confou.View"
+        mc:Ignorable="d"
+        Title="EventPage" Height="720" Width="1280"
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition Width="0.9*"/>
+            <ColumnDefinition Width="0.05*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.85*"/>
+            <RowDefinition Height="0.05*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Style="{StaticResource ButtonsStyle}" Width="100" Height="40" Content="Назад" Foreground="White" FontSize="18" HorizontalAlignment="Left"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock  x:Name="EventTitle" Text="НАЗВАНИЕ МЕРОПРИЯТИЯ" FontSize="40"/>
+                <TextBlock x:Name="AgeRestriction" Text="Возрастное ограничение" FontSize="25" Margin="10,0,0,0"/>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="EventDescription" Text="ОПИСАНИЕ СОБЫТИЯ" FontSize="25" Margin="0,20,20,20"/>
+                <Image x:Name="Image" Grid.Column="1" Stretch="UniformToFill" Margin="10"/>
+            </Grid>
+            <ScrollViewer Grid.Row="2">
+                <StackPanel x:Name="TicketsPanel" Orientation="Vertical"/>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

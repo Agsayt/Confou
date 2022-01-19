@@ -32,7 +32,7 @@ namespace Confou.View
         {
             InitializeComponent();
             OnLoad();
-            CreateAdmin();
+            //CreateAdmin();
 
         }
 
@@ -112,32 +112,52 @@ namespace Confou.View
         /// </summary>
         private void AuthoAuth()
         {
-            if (Properties.Settings.Default.Login != String.Empty && !IsAuthorized)
+            if ((StaticResources.userStatic != null || Properties.Settings.Default.Login != String.Empty) && !IsAuthorized)
             {
-                switch (Properties.Settings.Default.Role)
+                ConfouLibrary.Users user;
+                ConfouLibrary.UserRole role;
+                if (StaticResources.userStatic != null)
                 {
-                    case (int)ConfouLibrary.UserRole.User:
+                    role = StaticResources.userStatic.RoleId;
+                    user = StaticResources.userStatic;
+                }
+                else
+                {
+                    role = (ConfouLibrary.UserRole)Properties.Settings.Default.Role;
+                    user = StaticResources.LogicManager.UsersManagement.GetUserByID(Guid.Parse(Properties.Settings.Default.UserID), out string error);
+
+                    if (error != null)
+                    {
+                        MessageBox.Show(error);
+                        return;
+                    }
+                }
+
+                switch (role)
+                {
+                    case ConfouLibrary.UserRole.User:
                         Statistics.Visibility = Visibility.Collapsed;
                         Sells.Visibility = Visibility.Collapsed;
                         Events.Visibility = Visibility.Collapsed;
                         break;
-                    case (int)ConfouLibrary.UserRole.Administrator:
+                    case ConfouLibrary.UserRole.Administrator:
                         MyTickets.Visibility = Visibility.Collapsed;
                         Statistics.Visibility = Visibility.Collapsed;
                         Sells.Visibility = Visibility.Collapsed;
                         Events.Visibility = Visibility.Collapsed;
+                        AdminPanel.Visibility = Visibility.Visible;
                         break;
-                    case (int)ConfouLibrary.UserRole.Seller: 
+                    case ConfouLibrary.UserRole.Seller: 
                         AdminPanel.Visibility = Visibility.Collapsed;
                         MyTickets.Visibility = Visibility.Collapsed;
                         break;
-                    case (int)ConfouLibrary.UserRole.Buyer:
+                    case ConfouLibrary.UserRole.Buyer:
                         Events.Visibility = Visibility.Collapsed;
                         Sells.Visibility = Visibility.Collapsed;
                         Statistics.Visibility = Visibility.Collapsed;
                         AdminPanel.Visibility = Visibility.Collapsed;
                         break;
-                    case (int)ConfouLibrary.UserRole.Organizator: 
+                    case ConfouLibrary.UserRole.Organizator: 
                         AdminPanel.Visibility = Visibility.Collapsed;
                         MyTickets.Visibility = Visibility.Collapsed;
                         break;
@@ -148,17 +168,11 @@ namespace Confou.View
                 UserAvatar.Visibility = Visibility.Visible;
                 UserName.Visibility = Visibility.Visible;
 
-                var user = StaticResources.LogicManager.UsersManagement.GetUserByID(Guid.Parse(Properties.Settings.Default.UserID), out string error);
+                
 
-                if( error != null)
-                {
-                    MessageBox.Show(error);
-                    return;
-                }
-
-
-                UserAvatar.Source = StaticResources.GetImage(user.Image);
-                UserName.Text = $"{user.LastName} {user.FirstName.Substring(0,1)}. {user.MiddleName.Substring(0,1)}.";
+                if (user.Image != null)
+                    UserAvatar.Source = StaticResources.GetImage(user.Image);
+                UserName.Text = $"{user.Login}";
 
             }
         }
@@ -258,14 +272,26 @@ namespace Confou.View
                 AuthPage ap = new AuthPage();
                 ap.Owner = this;
                 ap.ShowDialog();
+                AuthoAuth();
 
                 MainGrid.BitmapEffect = null;
             }
             else
             {
-
+                Profile pr = new Profile();
+                this.Hide();
+                pr.ShowDialog();
+                this.Show();
             }          
 
+        }
+
+        private void AdminPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            AdminPage ap = new AdminPage();
+            this.Hide();
+            ap.ShowDialog();
+            this.Show();
         }
     }
 }

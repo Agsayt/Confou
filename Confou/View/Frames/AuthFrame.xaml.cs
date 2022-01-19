@@ -49,7 +49,7 @@ namespace Confou.View.Frames
 
             if(IsVerified)
             {
-                var user = StaticResources.LogicManager.UsersManagement.GetUserByID(userId, out string errorUser);
+                StaticResources.userStatic = StaticResources.LogicManager.UsersManagement.GetUserByID(userId, out string errorUser);
 
                 if(errorUser != null)
                 {
@@ -58,10 +58,10 @@ namespace Confou.View.Frames
 
                 if (RememberCheck.IsChecked == true)
                 {
-                    Properties.Settings.Default.Login = user.Login;
-                    Properties.Settings.Default.Password = user.PasswordHash;
-                    Properties.Settings.Default.Role = (int)user.RoleId;
-                    Properties.Settings.Default.UserID = user.UserId.ToString();
+                    Properties.Settings.Default.Login = StaticResources.userStatic.Login;
+                    Properties.Settings.Default.Password = StaticResources.userStatic.PasswordHash;
+                    Properties.Settings.Default.Role = (int)StaticResources.userStatic.RoleId;
+                    Properties.Settings.Default.UserID = StaticResources.userStatic.UserId.ToString();
                 }
 
                 AuthPage window = Application.Current.Windows.OfType<AuthPage>().FirstOrDefault();

@@ -18,7 +18,20 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Button Click="Button_Click" Content="Назад" Width="50" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Background="#FF373535" Foreground="White"/>
+        <TextBlock Grid.Row="1" Text="Логин" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="40,0,0,0"/>
+        <TextBlock Grid.Row="2" Text="Пароль" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="40,0,0,0"/>
+        <TextBlock Grid.Row="3" Text="Пароль" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="40,0,0,0"/>
+        <TextBlock Grid.Row="4" Text="Почта" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="40,0,0,0"/>
+        <TextBox x:Name="Login" Grid.Row="1" Grid.Column="1" Height="20" Margin="10" />
+        <PasswordBox Grid.Row="2" Grid.Column="1" Height="20" Margin="10" PasswordChanged="PasswordChanged" />
+        <PasswordBox Grid.Row="3" Grid.Column="1" Height="20" Margin="10" PasswordChanged="PasswordVerifyChanged" />
+        <TextBox x:Name="Email" Grid.Row="4" Grid.Column="1" Height="20" Margin="10" />
+        <Button Grid.Row="5" Grid.ColumnSpan="2" Style="{StaticResource ButtonsStyle}" Width="100" Height="25" Content="Создать" Foreground="White" Click="CreateButton" />
     </Grid>
           
 </Page>

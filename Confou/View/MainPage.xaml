@@ -33,7 +33,7 @@
                 <TextBlock x:Name="Events" Text="Cобытия" FontSize="18" Style="{StaticResource TextBlockAsButton}"  Margin="15"/>
                 <TextBlock x:Name="Sells" Text="Продажи" FontSize="18" Style="{DynamicResource TextBlockAsButton}" Margin="15"/>
                 <TextBlock x:Name="Statistics" Text="Статистика" FontSize="18" Style="{DynamicResource TextBlockAsButton}" Margin="15"/>
-                <TextBlock x:Name="AdminPanel" Text="Панель администрирования" FontSize="18" Style="{DynamicResource TextBlockAsButton}" Margin="15"/>
+                <TextBlock x:Name="AdminPanel" Text="Панель администрирования" FontSize="18" Style="{DynamicResource TextBlockAsButton}" Margin="15" MouseLeftButtonDown="AdminPanel_MouseLeftButtonDown"/>
             </StackPanel>
             <!--<Viewbox Grid.Column="1" Width="243" Height="60" >-->
             <Button Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Style="{StaticResource ButtonsStyle}" Width="243" Height="60" Cursor="Arrow" MouseLeftButtonDown="Button_MouseLeftButtonDown" >

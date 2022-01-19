@@ -41,7 +41,7 @@ namespace ConfouLibrary.BusinessLogic.Safety
         /// <returns></returns>
         public static bool VerifyPassword(string enteredPassword, string salt, string storedPassword)
         {
-            byte[] saltToByte = Convert.FromBase64String(salt);
+            byte[] saltToByte = Encoding.UTF8.GetBytes(salt);
 
             string encryptedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: enteredPassword,

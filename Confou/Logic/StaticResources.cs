@@ -1,4 +1,5 @@
-﻿using ConfouLibrary.BusinessLogic;
+﻿using ConfouLibrary;
+using ConfouLibrary.BusinessLogic;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +25,8 @@ namespace Confou.Logic
         }
 
         public static Basic LogicManager { get; set; }
+
+        public static Users userStatic { get; set; }
 
     }
 }

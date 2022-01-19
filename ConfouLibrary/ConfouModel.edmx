@@ -214,9 +214,9 @@
           <Property Name="Login" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="PasswordHash" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="MiddleName" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="30" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="30" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="30" />
           <Property Name="Enabled" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="CreateAuthor" Type="uniqueidentifier" Nullable="false" />
@@ -898,9 +898,9 @@
           <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RoleId" Type="BConfouModel.UserRole" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MiddleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateAuthor" Type="Guid" Nullable="false" />
@@ -1332,11 +1332,11 @@
           </AssociationSet>
         </EntityContainer>
         <EnumType Name="UserRole">
-          <Member Name="Administrator" />
-          <Member Name="Seller" />
-          <Member Name="Organizator" />
-          <Member Name="Buyer" />
-          <Member Name="User" />
+          <Member Name="Administrator" Value="0" />
+          <Member Name="Seller" Value="1" />
+          <Member Name="Organizator" Value="2" />
+          <Member Name="Buyer" Value="3" />
+          <Member Name="User" Value="4" />
         </EnumType>
         <EnumType Name="EventStatus">
         <Member Name="Canceled" />

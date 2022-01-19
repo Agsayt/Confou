@@ -16,7 +16,7 @@ namespace ConfouLibrary.BusinessLogic
             try
             {
                 context = new ConfouEntities();
-                context.Organizations.Add(organization);
+                context.Organizations.Add(organization);                
                 context.SaveChanges();
             }
             catch (DbUpdateException ex)

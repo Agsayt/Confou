@@ -75,6 +75,7 @@
     <Compile Include="BusinessLogic\Interfaces\ISellerManagement.cs" />
     <Compile Include="BusinessLogic\Interfaces\ITicketManagement.cs" />
     <Compile Include="BusinessLogic\Interfaces\ITypeManagement.cs" />
+    <Compile Include="BusinessLogic\Models\Common.cs" />
     <Compile Include="BusinessLogic\OrganizationsManagement.cs" />
     <Compile Include="BusinessLogic\Safety\LogActions.cs" />
     <Compile Include="BusinessLogic\SellerManagement.cs" />
@@ -183,9 +184,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BusinessLogic\Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="ConfouModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

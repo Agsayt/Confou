@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Confou.UserControls.EventPrice"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Confou.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="500">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition Width="0.15*"/>
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="TicketNameBlock"  Text="НАЗВАНИЕ БИЛЕТА" VerticalAlignment="Center" FontSize="18"/>
+        <TextBlock x:Name="TicketsLeftBlock" Grid.Column="1" Text="Left" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Margin="5" Content="-" Height="20" Width="20" Click="DecreaseAmount"/>
+            <TextBlock x:Name="TicketsToBuyBlock" Margin="5" Text="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"/>
+            <Button Margin="5" Content="+" Height="20" Width="20" Click="RiseAmount"/>
+        </StackPanel>
+        <Button Grid.Column="3" Margin="5" BorderBrush="{x:Null}" Click="ToBuyTicket">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="/Resources/cart.png"/>
+            </Button.Background>
+        </Button>
+    </Grid>
+</UserControl>
