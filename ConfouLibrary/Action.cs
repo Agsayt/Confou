@@ -18,6 +18,7 @@ namespace ConfouLibrary
         UPDATE = 2,
         DISABLE = 3,
         REFUND = 4,
-        SELL = 5
+        SELL = 5,
+		Dell = 6
     }
 }
